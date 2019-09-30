@@ -1,0 +1,32 @@
+{
+    "name": "rossicampos/fiscal",
+    "description": "Biblioteca de classes em PHP",
+    "homepage": "http://www.rossicampos.com.br",
+    "keywords": [
+        "fiscal",
+        "cpf",
+        "cnpj",
+        "nota",
+        "cupom"
+    ],
+    "license":"MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Bráulio Rossi",
+            "email": "braulio@rossicampos.com.br",
+            "homepage": "http://www.rossicampos.com.br",
+            "role": "Core framework development"
+        }
+    ],
+    "require": {
+        "php": "~7.2"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
