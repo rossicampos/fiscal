@@ -18,8 +18,8 @@ class NotaFiscal extends BaseObject
     const FRETE_FOB = 2;
 
     const LEGENDA_FRETE = [
-        static::FRETE_CIF => 'CIF',
-        static::FRETE_FOB => 'FOB'
+        self::FRETE_CIF => 'CIF',
+        self::FRETE_FOB => 'FOB'
     ];
 
     /** @var string número do registro */
