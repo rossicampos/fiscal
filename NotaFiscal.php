@@ -13,6 +13,15 @@ class NotaFiscal extends BaseObject
 {
     use NumeroTrait;
 
+    const FRETE_CIF = 1;
+
+    const FRETE_FOB = 2;
+
+    const LEGENDA_FRETE = [
+        static::FRETE_CIF => 'CIF',
+        static::FRETE_FOB => 'FOB'
+    ];
+
     /** @var string número do registro */
     protected $_numero;
 
@@ -136,5 +145,20 @@ class NotaFiscal extends BaseObject
             return false;
         }
         return true;
+    }
+
+    /**
+     * Retorna a legenda do frete.
+     * Se não for informado o frete, retorna um array com a legenda de todos os fretes.
+     *
+     * @param int $valor
+     * @return string|array|null
+     */
+    public static function getFreteLegenda($valor = null)
+    {
+        if ($valor !== null) {
+            return isset(static::LEGENDA_FRETE[$valor]) ? static::LEGENDA_FRETE[$valor] : null;
+        }
+        return static::LEGENDA_FRETE;
     }
 }
