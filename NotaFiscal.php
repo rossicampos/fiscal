@@ -9,11 +9,73 @@ namespace rossicampos\fiscal;
  *
  * @author braulio
  */
-class NotaFiscal extends AbstractRegistro
+class NotaFiscal extends BaseObject
 {
+    use NumeroTrait;
+
+    /** @var string número do registro */
+    protected $_numero;
 
     /** @var int série da Nota Fiscal */
     protected $_serie;
+
+    /**
+     * Constructor.
+     *
+     * @param mixed $numero número do registro
+     * @param mixed $serie série do registro
+     */
+    public function __construct($numero, $serie)
+    {
+        static::setNumero($numero);
+        static::setSerie($serie);
+    }
+
+    /**
+     * Retorna o número de registro.
+     *
+     * @return string o número do registro
+     */
+    public function getNumero()
+    {
+        return $this->_numero;
+    }
+
+    /**
+     * Define o número de registro.
+     *
+     * @param mixed $numero
+     */
+    public function setNumero($numero)
+    {
+        $numero = static::filtra($numero);
+        if (static::valida($numero)) {
+            $this->_numero = $numero;
+        }
+    }
+
+    /**
+     * Retorna a série da Nota Fiscal
+     *
+     * @return number série da Nota Fiscal
+     */
+    public function getSerie()
+    {
+        return $this->_serie;
+    }
+
+    /**
+     * Define o número da série da Nota Fiscal.
+     *
+     * @param mixed $serie a série da Nota Fiscal
+     */
+    public function setSerie($serie)
+    {
+        $serie = static::filtra($serie);
+        if (static::validaSerie($serie)) {
+            $this->_serie = $serie;
+        }
+    }
 
     /**
      * Formata e agrupa o número e a série da Nota Fiscal.
@@ -38,14 +100,13 @@ class NotaFiscal extends AbstractRegistro
     /**
      * Valida o número e a séria da Nota Fiscal.
      *
-     * @param string $numero o número da Nota Fiscal
-     * @param string $serie a série da Nota Fiscal
+     * @param mixed $numero o número da Nota Fiscal
+     * @param mixed $serie a série da Nota Fiscal
      * @return boolean
      */
     public static function valida($numero, $serie)
     {
         $numero = static::filtra($numero);
-        $serie = static::filtra($serie);
         return static::validaNumero($numero) && static::validaSerie($serie);
     }
 
@@ -75,18 +136,5 @@ class NotaFiscal extends AbstractRegistro
             return false;
         }
         return true;
-    }
-
-    /**
-     * Define o número da série da Nota Fiscal.
-     *
-     * @param mixed $serie a série da Nota Fiscal
-     */
-    public function setSerie($serie)
-    {
-        $serie = static::filtra($serie);
-        if (static::validaSerie($serie)) {
-            $this->_numero = $serie;
-        }
     }
 }

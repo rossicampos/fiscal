@@ -9,8 +9,45 @@ namespace rossicampos\fiscal;
  *
  * @author braulio
  */
-class Cpf extends AbstractRegistro
+class Cpf extends BaseObject
 {
+    use NumeroTrait;
+
+    /** @var string número do registro */
+    protected $_numero;
+
+    /**
+     * Constructor.
+     *
+     * @param mixed $numero número do registro
+     */
+    public function __construct($numero)
+    {
+        static::setNumero($numero);
+    }
+
+    /**
+     * Retorna o número de registro.
+     *
+     * @return string o número do registro
+     */
+    public function getNumero()
+    {
+        return $this->_numero;
+    }
+
+    /**
+     * Define o número de registro.
+     *
+     * @param mixed $numero
+     */
+    public function setNumero($numero)
+    {
+        $numero = static::filtra($numero);
+        if (static::valida($numero)) {
+            $this->_numero = $numero;
+        }
+    }
 
     /**
      * Forma o número do CPF.
