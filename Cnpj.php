@@ -71,6 +71,7 @@ class Cnpj extends BaseObject
     public static function formata($numero)
     {
         if (static::valida($numero)) {
+            $numero = str_pad(substr($numero, 0, 14), 14, '0', STR_PAD_LEFT);
             $numero = substr_replace($numero, '.', 2, 0);
             $numero = substr_replace($numero, '.', 6, 0);
             $numero = substr_replace($numero, '/', 10, 0);
