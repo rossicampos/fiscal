@@ -13,6 +13,19 @@ class Cnpj extends BaseObject
 {
     use NumeroTrait;
 
+    const BLACK_LIST = [
+        '00000000000000',
+        '11111111111111',
+        '22222222222222',
+        '33333333333333',
+        '44444444444444',
+        '55555555555555',
+        '66666666666666',
+        '77777777777777',
+        '88888888888888',
+        '99999999999999'
+    ];
+
     /** @var string número do registro */
     protected $_numero;
 
@@ -75,18 +88,18 @@ class Cnpj extends BaseObject
     public static function valida($numero)
     {
         $numero = static::filtra($numero);
-        if (strlen($numero) != 14) {
+        $numero = str_pad(substr($numero, 0, 14), 14, '0', STR_PAD_LEFT);
+        if (in_array($numero, self::BLACK_LIST)) {
             return false;
-        } else {
-            $soma1 = ($numero[0] * 5) + ($numero[1] * 4) + ($numero[2] * 3) + ($numero[3] * 2) + ($numero[4] * 9) + ($numero[5] * 8) + ($numero[6] * 7) + ($numero[7] * 6) + ($numero[8] * 5) + ($numero[9] * 4) + ($numero[10] * 3) + ($numero[11] * 2);
-            $resto1 = $soma1 % 11;
-            $digito1 = ($resto1 < 2) ? 0 : (11 - $resto1);
-            $soma2 = ($numero[0] * 6) + ($numero[1] * 5) + ($numero[2] * 4) + ($numero[3] * 3) + ($numero[4] * 2) + ($numero[5] * 9) + ($numero[6] * 8) + ($numero[7] * 7) + ($numero[8] * 6) + ($numero[9] * 5) + ($numero[10] * 4) + ($numero[11] * 3) + ($numero[12] * 2);
-            $resto2 = $soma2 % 11;
-            $digito2 = ($resto2 < 2) ? 0 : (11 - $resto2);
-            if (($numero[12] != $digito1) || ($numero[13] != $digito2)) {
-                return false;
-            }
+        }
+        $soma1 = ($numero[0] * 5) + ($numero[1] * 4) + ($numero[2] * 3) + ($numero[3] * 2) + ($numero[4] * 9) + ($numero[5] * 8) + ($numero[6] * 7) + ($numero[7] * 6) + ($numero[8] * 5) + ($numero[9] * 4) + ($numero[10] * 3) + ($numero[11] * 2);
+        $resto1 = $soma1 % 11;
+        $digito1 = ($resto1 < 2) ? 0 : (11 - $resto1);
+        $soma2 = ($numero[0] * 6) + ($numero[1] * 5) + ($numero[2] * 4) + ($numero[3] * 3) + ($numero[4] * 2) + ($numero[5] * 9) + ($numero[6] * 8) + ($numero[7] * 7) + ($numero[8] * 6) + ($numero[9] * 5) + ($numero[10] * 4) + ($numero[11] * 3) + ($numero[12] * 2);
+        $resto2 = $soma2 % 11;
+        $digito2 = ($resto2 < 2) ? 0 : (11 - $resto2);
+        if (($numero[12] != $digito1) || ($numero[13] != $digito2)) {
+            return false;
         }
         return true;
     }
