@@ -11,6 +11,7 @@ namespace rossicampos\fiscal;
  */
 abstract class AbstractRegistro extends BaseObject
 {
+    use NumeroTrait;
 
     /** @var string número do registro */
     protected $_numero;
@@ -46,17 +47,6 @@ abstract class AbstractRegistro extends BaseObject
         if (static::valida($numero)) {
             $this->_numero = $numero;
         }
-    }
-
-    /**
-     * Filtra o número de registro.
-     *
-     * @param mixed $numero número do registro
-     * @return string o número do registro, somente os dígitos
-     */
-    public static function filtra($numero)
-    {
-        return mb_ereg_replace('(\D)', '', $numero);
     }
 
     /**
