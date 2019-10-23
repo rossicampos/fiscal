@@ -74,28 +74,29 @@ class Cpf extends BaseObject
     public static function valida($numero)
     {
         $numero = static::filtra($numero);
-        if (strlen($numero) == 11) {
-            $numeros = substr($numero, 0, 9);
-            $digitos = substr($numero, 9);
-            $soma = 0;
-            for ($i = 10; $i > 1; $i --) {
-                $soma += $numeros[10 - $i] * $i;
-            }
-            $resultado = (($soma % 11) < 2) ? 0 : (11 - ($soma % 11));
-            if ($resultado != $digitos[0]) {
-                return false;
-            }
-            $numeros = substr($numero, 0, 10);
-            $soma = 0;
-            for ($i = 11; $i > 1; $i --) {
-                $soma += $numeros[11 - $i] * $i;
-            }
-            $resultado = (($soma % 11) < 2) ? 0 : (11 - ($soma % 11));
-            if ($resultado != $digitos[1]) {
-                return false;
-            }
-            return true;
+        $numero = str_pad(substr($numero, 0, 11), 11, '0', STR_PAD_LEFT);
+        if (in_array($numero, self::BLACK_LIST)) {
+            return false;
         }
-        return false;
+        $numeros = substr($numero, 0, 9);
+        $digitos = substr($numero, 9);
+        $soma = 0;
+        for ($i = 10; $i > 1; $i --) {
+            $soma += $numeros[10 - $i] * $i;
+        }
+        $resultado = (($soma % 11) < 2) ? 0 : (11 - ($soma % 11));
+        if ($resultado != $digitos[0]) {
+            return false;
+        }
+        $numeros = substr($numero, 0, 10);
+        $soma = 0;
+        for ($i = 11; $i > 1; $i --) {
+            $soma += $numeros[11 - $i] * $i;
+        }
+        $resultado = (($soma % 11) < 2) ? 0 : (11 - ($soma % 11));
+        if ($resultado != $digitos[1]) {
+            return false;
+        }
+        return true;
     }
 }
