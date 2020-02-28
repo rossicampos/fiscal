@@ -37,7 +37,7 @@ abstract class AbstractPessoa extends BaseObject
      */
     public function setNome($nome)
     {
-        $this->_nome = $nome;
+        $this->_nome = trim($nome);
     }
 
     /**
