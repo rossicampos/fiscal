@@ -14,32 +14,17 @@ use rossicampos\fiscal\Cpf;
 class Fisica extends AbstractPessoa
 {
 
-    /**
-     * {@inheritdoc}
-     * @see \rossicampos\fiscal\pessoa\AbstractPessoa::getRegistro()
-     */
-    public function getRegistro()
-    {
-        return $this->getCpf();
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \rossicampos\fiscal\pessoa\AbstractPessoa::setRegistro()
-     */
-    public function setRegistro($registro)
-    {
-        $this->setCpf($registro);
-    }
+    /** @var string CPF */
+    protected $_cpf;
 
     /**
      * Retorna o número do CPF ou null se ele não foi definido.
      *
-     * @return string|NULL número do CPF ou null
+     * @return string|null número do CPF ou null
      */
     public function getCpf()
     {
-        return is_object($this->_registro) ? $this->_registro->numero : null;
+        return is_object($this->_cpf) ? $this->_cpf->numero : null;
     }
 
     /**
@@ -49,6 +34,6 @@ class Fisica extends AbstractPessoa
      */
     public function setCpf($cpf)
     {
-        $this->_registro = new Cpf($cpf);
+        $this->_cpf = new Cpf($cpf);
     }
 }

@@ -14,28 +14,13 @@ use rossicampos\fiscal\Cnpj;
 class Juridica extends AbstractPessoa
 {
 
-    /**
-     * {@inheritdoc}
-     * @see \rossicampos\fiscal\pessoa\AbstractPessoa::getRegistro()
-     */
-    public function getRegistro()
-    {
-        return $this->getCnpj();
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \rossicampos\fiscal\pessoa\AbstractPessoa::setRegistro()
-     */
-    public function setRegistro($registro)
-    {
-        $this->setCnpj($registro);
-    }
+    /** @var string CNPJ */
+    protected $_cnpj;
 
     /**
      * Retorna o número do CNPJ ou null se ele não foi definido.
      *
-     * @return string|NULL número do CNPJ
+     * @return string|null número do CNPJ
      */
     public function getCnpj()
     {
